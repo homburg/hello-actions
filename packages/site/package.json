@@ -1,9 +1,14 @@
 {
-  "name": "site",
+  "name": "@/site",
   "private": true,
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
   "dependencies": {
     "@/lib": "1.0.0",
     "@/site-deps": "1.0.0"
