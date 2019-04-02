@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {
+    "syncpack": "^4.3.1"
+  },
+  "devDependencies": {
+    "prettier": "^1.16.4"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "other-site",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@/site-deps": "1.0.0"
+  }
+}
