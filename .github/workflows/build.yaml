@@ -15,7 +15,10 @@ jobs:
           # ACTIONS_RUNTIME_TOKEN, ACTIONS_RUNTIME_URL should be exposed
           env|sort
 
+      - uses: actions/checkout@v3
+
       - run: docker buildx build \
           --cache-from=type=gha \
           --cache-to=type=gha,mode=max \
+          --tag test \
           --load .
