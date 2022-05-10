@@ -9,7 +9,13 @@ jobs:
     steps:
       - name: Expose GitHub Runtime
         uses: crazy-max/ghaction-github-runtime@v1
+
       - name: Env
         run: |
           # ACTIONS_RUNTIME_TOKEN, ACTIONS_RUNTIME_URL should be exposed
           env|sort
+
+      - run: docker buildx build \
+          --cache-from=type=gha \
+          --cache-to=type=gha,mode=max \
+          --load
