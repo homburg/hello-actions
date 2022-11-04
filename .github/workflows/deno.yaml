@@ -21,6 +21,8 @@ jobs:
         with:
           deno-version: v1.x
 
+      - run: cat $GITHUB_OUTPUT
+
       - id: output
         run: deno run main.ts ${{ matrix.version }} >> $GITHUB_OUTPUT
 
