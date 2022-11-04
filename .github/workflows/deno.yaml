@@ -31,4 +31,6 @@ jobs:
     needs: worker
     runs-on: ubuntu-latest
     steps:
-      - run: echo ok ${{ needs.worker.outputs.output }}
+      - run: echo ok ${{ needs.worker }}
+
+      - run: echo ok ${{ toJSON(needs.worker) }}
