@@ -1,0 +1,36 @@
+name: Deno
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  worker:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [37, 42]
+    outputs:
+      output: ${{ steps.output.outputs.output }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+
+      - run: cat $GITHUB_OUTPUT
+
+      - id: output
+        run: deno run main.ts ${{ matrix.version }} >> $GITHUB_OUTPUT
+
+  gather:
+    name: Gather worker outputs
+    needs: worker
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ok ${{ needs.worker }}
+
+      - run: echo ok ${{ toJSON(needs.worker) }}
