@@ -11,7 +11,13 @@ jobs:
       - uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
+
+      - run: deno run main.ts
+
+      - run: deno test
+
   deno:
+    if: false
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
