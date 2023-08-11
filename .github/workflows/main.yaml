@@ -28,6 +28,6 @@ jobs:
 
       - name: Install runsc as docker runtime
         run: |
-          /usr/local/bin/runsc install
+          sudo /usr/local/bin/runsc install
           sudo systemctl reload docker
           docker run --rm --runtime=runsc hello-world
