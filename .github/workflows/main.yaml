@@ -25,3 +25,9 @@ jobs:
             chmod a+rx runsc containerd-shim-runsc-v1
             sudo mv runsc containerd-shim-runsc-v1 /usr/local/bin
           )
+
+      - name: Install runsc as docker runtime
+        run: |
+          /usr/local/bin/runsc install
+          sudo systemctl reload docker
+          docker run --rm --runtime=runsc hello-world
