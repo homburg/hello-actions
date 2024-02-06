@@ -23,8 +23,7 @@ jobs:
             commandOutput(await $`ls -la`.quiet());
             commandOutput(await $`apt install tree`.quiet());
 
-            core
-              .write();
+            core.summary.write();
 
       - uses: homburg/github-bun-script@main
         with:
