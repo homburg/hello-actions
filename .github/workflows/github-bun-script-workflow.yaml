@@ -10,8 +10,6 @@ jobs:
       - uses: homburg/github-bun-script@main
         with:
           script: |
-            const { $ } = require("bun");
-
             const { stdout, stderr, exitCode } = await $`echo "Hello World!"`.quiet();
 
             console.log(stdout); // Buffer(6) [ 72, 101, 108, 108, 111, 32 ]
