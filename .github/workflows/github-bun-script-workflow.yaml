@@ -10,8 +10,14 @@ jobs:
       - uses: homburg/github-bun-script@main
         with:
           script: |
-            const { stdout, stderr, exitCode } = await $`echo "Hello World!"`.quiet();
+            const res = await $`echo "Hello World!"`.quiet();
+            const { stdout, stderr, exitCode } = res;
 
             console.log(stdout); // Buffer(6) [ 72, 101, 108, 108, 111, 32 ]
             console.log(stderr); // Buffer(0) []
             console.log(exitCode); // 0
+
+            core.summary
+              .addHeading("github-bun-script")
+              .addTable(Object.entries(res))
+              .write();
