@@ -10,7 +10,7 @@ jobs:
       - uses: homburg/github-bun-script@main
         with:
           script: |
-            import { $ } from "bun";
+            const { $ } = require("bun");
 
             const { stdout, stderr, exitCode } = await $`echo "Hello World!"`.quiet();
 
