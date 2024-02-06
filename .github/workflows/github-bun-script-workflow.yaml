@@ -1,0 +1,13 @@
+name: Test Github Bun Script
+
+on:
+  push:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: homburg/github-bun-script
+        with:
+          script: |
+            console.log("Hello!");
