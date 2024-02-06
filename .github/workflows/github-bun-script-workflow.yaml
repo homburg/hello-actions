@@ -7,7 +7,7 @@ jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - uses: homburg/github-bun-script
+      - uses: homburg/github-bun-script@main
         with:
           script: |
             console.log("Hello!");
