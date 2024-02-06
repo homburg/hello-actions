@@ -10,14 +10,23 @@ jobs:
       - uses: homburg/github-bun-script@main
         with:
           script: |
-            const res = await $`echo "Hello World!"`.quiet();
-            const { stdout, stderr, exitCode } = res;
-
-            console.log(stdout); // Buffer(6) [ 72, 101, 108, 108, 111, 32 ]
-            console.log(stderr); // Buffer(0) []
-            console.log(exitCode); // 0
 
             core.summary
               .addHeading("github-bun-script")
-              .addTable(Object.entries(res).map(([key, val]) => [key, val.toString()]))
+
+            function commandOutput(output) {
+              core.summary
+                .addTable(Object.entries(output).map(([key, value]) => [key, value.toString()]));
+            }
+
+            commandOutput(await $`echo "Hello World!"`.quiet());
+            commandOutput(await $`ls -la`.quiet());
+            commandOutput(await $`apt install tree`.quiet());
+
+            core
               .write();
+
+      - uses: homburg/github-bun-script@main
+        with:
+          script: |
+            await $`false`
