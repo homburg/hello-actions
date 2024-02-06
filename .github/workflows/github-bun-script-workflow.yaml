@@ -29,3 +29,6 @@ jobs:
         with:
           script: |
             await $`false`
+      
+      - run: |
+          env
