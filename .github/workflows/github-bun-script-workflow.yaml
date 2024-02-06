@@ -7,25 +7,28 @@ jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      # - uses: homburg/github-bun-script@main
-      #   with:
-      #     script: |
+      - uses: homburg/github-bun-script@main
+        with:
+          script: |
 
-      #       core.summary
-      #         .addHeading("github-bun-script")
+            core.summary
+              .addHeading("github-bun-script")
 
-      #       function commandOutput(output) {
-      #         core.summary
-      #           .addTable(Object.entries(output).map(([key, value]) => [key, value.toString()]));
-      #       }
+            function commandOutput(output) {
+              core.summary
+                .addTable(Object.entries(output).map(([key, value]) => [key, value.toString()]));
+            }
 
-      #       commandOutput(await $`echo "Hello World!"`.quiet());
-      #       commandOutput(await $`ls -la`.quiet());
-      #       commandOutput(await $`apt install tree`.quiet());
+            commandOutput(await $`echo "Hello World!"`.quiet());
+            commandOutput(await $`ls -la`.quiet());
+            commandOutput(await $`apt install tree`.quiet());
 
-      #       core.summary.write();
+            core.summary.write();
 
       - uses: homburg/github-bun-script@main
         with:
           script: |
             console.log("Hey!");
+
+      - run: |
+          env
