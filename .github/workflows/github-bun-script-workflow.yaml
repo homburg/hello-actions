@@ -9,6 +9,5 @@ jobs:
     steps:
       - uses: homburg/github-bun-script@main
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             console.log("Hello!");
