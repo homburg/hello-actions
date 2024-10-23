@@ -22,7 +22,8 @@ jobs:
 
             commandOutput(await $`echo "Hello World!"`.quiet());
             // commandOutput(await $`ls -la`.quiet());
-            commandOutput(await $`apt install tree`.quiet());
+
+            commandOutput(await $`apt-get install tree`.quiet());
 
             core.summary.write();
 
