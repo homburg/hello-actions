@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  run:
+  github-bun-script:
     runs-on: ubuntu-latest
     steps:
       - uses: homburg/github-bun-script@main
@@ -28,10 +28,21 @@ jobs:
 
             core.summary.write();
 
-      - uses: homburg/github-bun-script@main
+  github-script:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
         with:
           script: |
-            console.log("Hey!");
 
-      - run: |
-          env
+            core.summary
+              .addHeading("github-script")
+
+            function commandOutput(output) {
+              core.summary
+                .addTable(Object.entries(output).map(([key, value]) => [key, value.toString()]));
+            }
+
+            commandOutput(await exec.getExecOutput(`echo` ["Hello World!"]));
+
+            core.summary.write();
