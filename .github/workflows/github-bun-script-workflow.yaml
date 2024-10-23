@@ -1,0 +1,43 @@
+name: Test Github Bun Script
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  github-bun-script:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: homburg/github-bun-script@main
+        with:
+          script: |
+
+            core.summary
+              .addHeading("github-bun-script")
+
+            function commandOutput(output) {
+              core.summary
+                .addTable(Object.entries(output).map(([key, value]) => [key, value.toString()]));
+            }
+
+            commandOutput(await $`echo "Hello World!"`.quiet());
+
+            // commandOutput(await $`ls -la`.quiet());
+
+            // commandOutput(await $`apt-get install tree`.quiet());
+
+            core.summary.write();
+
+  github-script:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+
+            core.summary
+              .addHeading("github-script")
+
+            core.summary.addRaw(`\`\`\`\n${await exec.getExecOutput(`echo`, ["Hello World!"])}\n\`\`\`\n`);
+
+            core.summary.write();
