@@ -2,6 +2,7 @@ name: Test Github Bun Script
 
 on:
   push:
+  workflow_dispatch:
 
 jobs:
   run:
