@@ -38,6 +38,6 @@ jobs:
             core.summary
               .addHeading("github-script")
 
-            core.summary.addRaw(`\`\`\`\n${await exec.getExecOutput(`echo` ["Hello World!"])}\n\`\`\`\n`);
+            core.summary.addRaw(`\`\`\`\n${await exec.getExecOutput(`echo`, ["Hello World!"])}\n\`\`\`\n`);
 
             core.summary.write();
