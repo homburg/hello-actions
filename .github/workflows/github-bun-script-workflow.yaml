@@ -38,11 +38,6 @@ jobs:
             core.summary
               .addHeading("github-script")
 
-            function commandOutput(output) {
-              core.summary
-                .addTable(Object.entries(output).map(([key, value]) => [key, value.toString()]));
-            }
-
-            commandOutput(await exec.getExecOutput(`echo` ["Hello World!"]));
+            core.summary.addRaw(`\`\`\`\n${await exec.getExecOutput(`echo` ["Hello World!"])}\n\`\`\`\n`);
 
             core.summary.write();
