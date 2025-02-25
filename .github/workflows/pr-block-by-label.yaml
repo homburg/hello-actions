@@ -32,3 +32,9 @@ jobs:
               .addHeading('PR Blocked by label')
               .addRaw(`\n\`\`\`json\n${JSON.stringify(label_check_output, null, 2)}\`\`\``)
               .write()
+
+            if (label_check_output.one_of_labels_present) {
+              core.setFailed('PR blocked by label: block-pr');
+            } else {
+              core.setSuccess('PR not blocked by label: block-pr');
+            }
