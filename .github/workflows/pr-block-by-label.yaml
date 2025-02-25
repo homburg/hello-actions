@@ -19,7 +19,7 @@ jobs:
         continue-on-error: true
         with:
           one_of: block-pr
-          repo_token: ${{ secrets.PAT }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
           allow_failure: true
         
       - name: Block PR if label is present
