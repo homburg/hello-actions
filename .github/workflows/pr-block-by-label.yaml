@@ -33,6 +33,8 @@ jobs:
               .addRaw(`\n\`\`\`json\n${JSON.stringify(label_check_output, null, 2)}\n\`\`\`\n`)
               .write()
 
-            if (label_check_output.one_of_labels_present) {
+            const label_is_present = label_check_output === "success"
+
+            if (label_is_present) {
               core.setFailed('PR blocked by label: block-pr');
             }
