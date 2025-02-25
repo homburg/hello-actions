@@ -15,6 +15,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: docker://agilepathway/pull-request-label-checker:latest
+        id: label_check
+        continue-on-error: true
         with:
           one_of: block-pr
           repo_token: ${{ secrets.PAT }}
+          allow_failure: true
+        
+      - name: Block PR if label is present
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const label_check_output = ${{ toJSON(steps.label_check.outputs.label_check) }};
+
+            core.summary
+              .addHeading('PR Blocked by label')
+              .addRaw(`\n\`\`\`json\n${JSON.stringify(label_check_output, null, 2)}\`\`\``)
+              .write()
