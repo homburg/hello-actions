@@ -11,7 +11,7 @@ on:
 jobs:
 
   check_labels:
-    name: Check labels
+    name: "Require label not present: block-pr"
     runs-on: ubuntu-latest
     steps:
       - uses: docker://agilepathway/pull-request-label-checker:latest
@@ -29,8 +29,8 @@ jobs:
             const label_check_output = ${{ toJSON(steps.label_check.outputs.label_check) }};
 
             core.summary
-              .addHeading('PR Blocked by label')
-              .addRaw(`\n\`\`\`json\n${JSON.stringify(label_check_output, null, 2)}\`\`\``)
+              .addHeading('Label checker output')
+              .addRaw(`\n\`\`\`json\n${JSON.stringify(label_check_output, null, 2)}\n\`\`\`\n`)
               .write()
 
             if (label_check_output.one_of_labels_present) {
