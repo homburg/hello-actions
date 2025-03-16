@@ -22,5 +22,21 @@ jobs:
 
     - env:
         GITHUB_TOKEN: ${{ steps.octo-sts.outputs.token }}
+      id: list_repos
       run: |
-        gh repo list
+        gh repo list | tee -a "$GITHUB_OUTPUT"
+    
+    - uses: actions/github-script@v7
+      with:
+        script: |
+          const list_repos_output = ${{ toJSON(steps.list_repos.outputs.stdout) }}
+          console.log(list_repos_output)
+
+          core.summary
+            .addRaw(`\n\`\`\`\n${list_repos_output}\n\`\`\`\n`)
+            .write();
+    
+    - name: Debug OIDC Claims
+      uses: github/actions-oidc-debugger@main
+      with:
+        audience: '${{ github.server_url }}/${{ github.repository_owner }}'
