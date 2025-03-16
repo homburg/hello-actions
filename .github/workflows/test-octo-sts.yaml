@@ -32,6 +32,12 @@ jobs:
           core.summary
             .addRaw(`\n\`\`\`json\n${JSON.stringify(list_repos_output, null, 2)}\n\`\`\`\n`)
             .write();
+      
+    - uses: actions/checkout@v4
+      with:
+        repository: homburg/build-repo
+        token: ${{ steps.octo-sts.outputs.token }}
+        path: build-repo
     
     - name: Debug OIDC Claims
       uses: github/actions-oidc-debugger@main
