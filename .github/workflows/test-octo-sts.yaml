@@ -38,6 +38,27 @@ jobs:
         repository: homburg/build-repo
         token: ${{ steps.octo-sts.outputs.token }}
         path: build-repo
+
+    - run: |
+        cd build-repo
+
+        git config --global push.autoSetupRemote true
+
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+        git fetch
+
+        git switch test-octo-sts || git switch -c test-octo-sts
+
+        date +%Y%m%d%H%M%S >> test-octo-sts.txt
+
+        git add test-octo-sts.txt
+
+        git commit -m "Update test-octo-sts.txt"
+
+        git push -u origin
+
     
     - name: Debug OIDC Claims
       uses: github/actions-oidc-debugger@main
