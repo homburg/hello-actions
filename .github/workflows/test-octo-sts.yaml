@@ -1,0 +1,24 @@
+name: Test Octo STS
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test-octo-sts:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # Needed to federate tokens.
+
+    steps:
+    - uses: octo-sts/action@main
+      id: octo-sts
+      with:
+        scope: homborg/hello-actions
+        identity: octo-test-identity
+
+    - env:
+        GITHUB_TOKEN: ${{ steps.octo-sts.outputs.token }}
+      run: |
+        gh repo list
