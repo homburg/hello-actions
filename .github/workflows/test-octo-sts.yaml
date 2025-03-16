@@ -30,7 +30,7 @@ jobs:
           });
 
           core.summary
-            .addRaw(`\n\`\`\`json\n${toJSON(list_repos_output)}\n\`\`\`\n`)
+            .addRaw(`\n\`\`\`json\n${JSON.stringify(list_repos_output, null, 2)}\n\`\`\`\n`)
             .write();
     
     - name: Debug OIDC Claims
