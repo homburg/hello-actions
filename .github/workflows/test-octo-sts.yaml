@@ -14,11 +14,11 @@ jobs:
       id-token: write # Needed to federate tokens.
 
     steps:
-    - uses: octo-sts/action@main
+    - uses: octo-sts/action@210248e8ae1ae1550aa6e232c6f192b3ccbf7335
       id: octo-sts
       with:
-        scope: homborg/hello-actions
-        identity: octo-test-identity
+        scope: homburg/build-repo
+        identity: push
 
     - env:
         GITHUB_TOKEN: ${{ steps.octo-sts.outputs.token }}
