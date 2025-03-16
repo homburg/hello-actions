@@ -20,17 +20,14 @@ jobs:
         scope: homburg/build-repo
         identity: push
 
-    - env:
-        GITHUB_TOKEN: ${{ steps.octo-sts.outputs.token }}
-      id: list_repos
-      run: |
-        gh repo list | tee -a "$GITHUB_OUTPUT"
-    
     - uses: actions/github-script@v7
       with:
         script: |
-          const list_repos_output = ${{ toJSON(steps.list_repos.outputs.stdout) }}
-          console.log(list_repos_output)
+          const list_repos_output = await exec.getExecOutput('gh', ["repo", "list"], {
+            env: {
+              GITHUB_TOKEN: ${{ toJSON(steps.octo-sts.outputs.token) }}
+            },
+          });
 
           core.summary
             .addRaw(`\n\`\`\`\n${list_repos_output}\n\`\`\`\n`)
