@@ -1,0 +1,71 @@
+name: Test Octo STS
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test-octo-sts:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # Needed to federate tokens.
+
+    steps:
+    - uses: octo-sts/action@210248e8ae1ae1550aa6e232c6f192b3ccbf7335
+      id: octo-sts
+      with:
+        scope: homburg/build-repo
+        identity: push
+
+    - uses: actions/github-script@v7
+      with:
+        script: |
+          const list_repos_output = await exec.getExecOutput('gh', ["repo", "list"], {
+            env: {
+              GITHUB_TOKEN: ${{ toJSON(steps.octo-sts.outputs.token) }}
+            },
+          });
+
+          core.summary
+            .addRaw(`\n\`\`\`json\n${JSON.stringify(list_repos_output, null, 2)}\n\`\`\`\n`)
+            .write();
+      
+    - uses: actions/checkout@v4
+      with:
+        repository: homburg/build-repo
+        token: ${{ steps.octo-sts.outputs.token }}
+        path: build-repo
+
+    - run: |
+        cd build-repo
+
+        git config --list
+        
+        git config --global push.autoSetupRemote true
+
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+        git config --global --list
+
+
+        git fetch
+
+        git switch test-octo-sts || git switch -c test-octo-sts
+
+        date +%Y%m%d%H%M%S >> test-octo-sts.txt
+
+        git add test-octo-sts.txt
+
+        git commit -m "Update test-octo-sts.txt"
+
+        git push -u origin
+
+    
+    - name: Debug OIDC Claims
+      uses: github/actions-oidc-debugger@main
+      with:
+        audience: '${{ github.server_url }}/${{ github.repository_owner }}'
