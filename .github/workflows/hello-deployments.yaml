@@ -1,0 +1,15 @@
+name: Hello Deployments
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  hello-deployments-job:
+    runs-on: ubuntu-latest
+    environment: hello-deployments-env
+    steps:
+      - run: echo "Hello, world!"
